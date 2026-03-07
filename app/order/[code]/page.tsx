@@ -50,7 +50,7 @@ export default function OrderPage() {
       >
         {/* TITLE */}
 
-        <h1 className="text-2xl font-bold text-center mb-6">Order Status</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 text-gray-900">Order Status</h1>
 
         {/* ERROR */}
 
@@ -133,7 +133,7 @@ export default function OrderPage() {
             Coins Delivered
           </div>
 
-          <div className="text-4xl font-bold mt-2">
+          <div className="text-4xl font-bold mt-2 text-gray-900">
             {order.alreadyDelivered}K
           </div>
 
