@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Loader2, CheckCircle, Info, Coins } from "lucide-react";
+import { Loader2, CheckCircle, Info, Coins, RotateCw } from "lucide-react";
 
 export default function OrderPage() {
   const params = useParams();
@@ -196,7 +196,7 @@ export default function OrderPage() {
               }}
               className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg flex items-center justify-center gap-2"
             >
-              🔄 Resume Transfer
+              <RotateCw /> Resume Transfer
             </button>
           </motion.div>
         )}
