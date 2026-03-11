@@ -41,38 +41,34 @@ export default function OrderPage() {
     order.economyState === "interrupted" &&
     order.accountCheck === "FailLoggedInConsoleTo";
 
-    const coins = Array.from({ length: 20 })
+  const coins = Array.from({ length: 20 });
 
   return (
     <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex flex-col items-center justify-center p-4 sm:p-6 gap-6">
-
       {/* FLYING COINS BACKGROUND */}
 
-<div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {coins.map((_, i) => {
+          const left = Math.random() * 100;
+          const delay = Math.random() * 10;
+          const duration = 15 + Math.random() * 10;
 
-  {coins.map((_, i) => {
-
-    const left = Math.random() * 100
-    const delay = Math.random() * 10
-    const duration = 15 + Math.random() * 10
-
-    return (
-      <span
-        key={i}
-        className="coin"
-        style={{
-          left: `${left}%`,
-          bottom: "-40px",
-          animationDuration: `${duration}s`,
-          animationDelay: `${delay}s`,
-        }}
-      >
-        <img src="/coin.png" className="w-4 h-4 object-contain" />
-      </span>
-    )
-  })}
-
-</div>
+          return (
+            <span
+              key={i}
+              className="coin"
+              style={{
+                left: `${left}%`,
+                bottom: "-40px",
+                animationDuration: `${duration}s`,
+                animationDelay: `${delay}s`,
+              }}
+            >
+              <img src="/coin.png" className="w-4 h-4 object-contain" />
+            </span>
+          );
+        })}
+      </div>
 
       {/* MAIN CARD */}
 
@@ -81,34 +77,35 @@ export default function OrderPage() {
         animate={{ opacity: 1, y: 0 }}
         className="z-10 bg-gradient-to-tr from-blue-950/90 via-gray-800/90 to-green-300/90 w-full max-w-[480px] rounded-2xl shadow-2xl p-5 sm:p-8"
       >
-
         {/* HEADER CARD */}
 
-      <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.4 }}
-        className="w-full max-w-[480px] bg-white/10 rounded-2xl shadow-xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4"
-      >
-        <img
-          src="/logo.png"
-          className="w-16 h-16 sm:w-22 sm:h-22 object-contain bg-gray-900/20 p-1 rounded-lg"
-        />
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.4 }}
+          className="w-full max-w-[480px] bg-white/10 rounded-2xl shadow-xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4"
+        >
+          <img
+            src="/logo.png"
+            className="w-16 h-16 sm:w-22 sm:h-22 object-contain bg-gray-900/20 p-1 rounded-lg"
+          />
 
-        <div>
-          <div className="text-white text-xl font-semibold">
-           H O Store Transfer Service
-          </div>
+          <div>
+            <div className="text-white text-xl font-semibold">
+              H O Store Transfer Service
+            </div>
 
-          <div className="text-gray-200 text-sm">
-            Track your order progress
+            <div className="text-gray-200 text-sm">
+              Track your order progress
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
         {/* TITLE */}
 
-        <h1 className="text-xl sm:text-2xl font-bold text-center my-6 text-white">Order Status</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-center my-6 text-white">
+          Order Status
+        </h1>
 
         {/* ERROR */}
 
@@ -185,7 +182,7 @@ export default function OrderPage() {
 
         {/* COINS INFO */}
 
-        <div className="text-center mb-6 mt-4">
+        {/* <div className="text-center mb-6 mt-4">
           <div className="flex justify-center items-center gap-2 text-gray-300 text-sm">
             <Coins size={16} />
             Coins Delivered
@@ -196,11 +193,29 @@ export default function OrderPage() {
           </div>
 
           <div className="text-gray-300">/ {order.totalAmount}K</div>
+        </div> */}
+
+        {/* COINS INFO MINIMAL */}
+
+        <div className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-3 my-6
+        hover:scale-105 transition-transform duration-300 cursor-pointer">
+          <div className="flex items-center gap-2 text-gray-100 text-sm">
+            <Coins size={16} />
+            <span>Coins</span>
+          </div>
+
+          <div className="flex items-center gap-2 font-semibold text-gray-100">
+            <span className="text-green-500">{order.alreadyDelivered}K</span>
+
+            <span className="text-gray-200">/</span>
+
+            <span>{order.totalAmount}K</span>
+          </div>
         </div>
 
         {/* PROGRESS BAR */}
 
-        <div className="mb-6">
+        <div className="mb-6 bg-white/5 border border-white/10 rounded-xl px-3 py-3 hover:scale-105 transition-transform duration-300 cursor-pointer">
           <div className="flex justify-between text-sm mb-1 text-gray-200">
             <span>Progress</span>
             <span>{progress}%</span>
