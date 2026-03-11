@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "H O Store Progress Tracker",
   description: "Track your order progress",
   icons: {
-      icon: "/coin.png",
+      icon: "/logo.png",
     },
 };
 
