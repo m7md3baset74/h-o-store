@@ -51,6 +51,7 @@ const isWrongBackup = order.accountCheck === "wrongBA";
 
   return (
     <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex flex-col items-center justify-center p-4 sm:p-6 gap-6">
+
       {/* FLYING COINS BACKGROUND */}
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -83,9 +84,21 @@ const isWrongBackup = order.accountCheck === "wrongBA";
         animate={{ opacity: 1, y: 0 }}
         className="z-10 bg-gradient-to-tr from-blue-950/90 via-gray-800/90 to-green-300/90 w-full max-w-[480px] rounded-2xl shadow-2xl p-5 sm:p-8"
       >
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.4 }}
+        >
+        <img
+            src="/logo.png"
+            className="w-full object-contain bg-gray-900/15 p-1 rounded-lg mx-auto mt-[-8px]"
+            />
+            </motion.div>
+
         {/* HEADER CARD */}
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 1.02 }}
@@ -106,10 +119,11 @@ const isWrongBackup = order.accountCheck === "wrongBA";
               Track your order progress
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
+        
         {/* TITLE */}
 
-        <h1 className="text-xl sm:text-2xl font-bold text-center my-6 text-white">
+        <h1 className="text-xl sm:text-2xl font-bold text-center mb-6 mt-2 text-white">
           Order Status
         </h1>
 
