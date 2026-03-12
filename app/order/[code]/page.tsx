@@ -41,6 +41,12 @@ export default function OrderPage() {
     order.economyState === "interrupted" &&
     order.accountCheck === "FailLoggedInConsoleTo";
 
+    // FUT TRANSFER ERRORS
+
+const isWrongUserPass = order.accountCheck === "wrongUserPass";
+const isNoTransferMarket = order.accountCheck === "noTM";
+const isWrongBackup = order.accountCheck === "wrongBA";
+
   const coins = Array.from({ length: 20 });
 
   return (
@@ -108,6 +114,80 @@ export default function OrderPage() {
         </h1>
 
         {/* ERROR */}
+
+        {/* FUT ERROR: WRONG EMAIL OR PASSWORD */}
+
+{isWrongUserPass && (
+  <motion.div
+    initial={{ opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="bg-red-500/10 border border-red-400/40 rounded-xl p-4 mb-6 backdrop-blur-sm"
+  >
+    <div className="flex items-center gap-2 font-semibold text-red-400 mb-2">
+      ⚠️ Action Required
+    </div>
+
+    <p className="text-sm text-gray-200">
+      Your EA email or password is incorrect. Please verify your credentials
+      and provide the correct login information to continue the transfer.
+    </p>
+  </motion.div>
+)}
+
+{/* FUT ERROR: NO TRANSFER MARKET */}
+
+{isNoTransferMarket && (
+  <motion.div
+    initial={{ opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="bg-yellow-500/10 border border-yellow-400/40 rounded-xl p-4 mb-6 backdrop-blur-sm"
+  >
+    <div className="flex items-center gap-2 font-semibold text-yellow-300 mb-2">
+      ⚠️ Transfer Market Locked
+    </div>
+
+    <p className="text-sm text-gray-200">
+      Your account currently has no access to the EA Transfer Market. This
+      access is required to safely deliver coins.
+    </p>
+
+    <p className="text-sm text-gray-300 mt-2">
+      Please play matches on console until EA unlocks the market or contact
+      support for further assistance.
+    </p>
+  </motion.div>
+)}
+
+{/* FUT ERROR: INVALID BACKUP CODES */}
+
+{isWrongBackup && (
+  <motion.div
+    initial={{ opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="bg-purple-500/10 border border-purple-400/40 rounded-xl p-4 mb-6 backdrop-blur-sm"
+  >
+    <div className="flex items-center gap-2 font-semibold text-purple-300 mb-2">
+      ⚠️ Backup Code Required
+    </div>
+
+    <p className="text-sm text-gray-200">
+      One or more of your EA backup codes are invalid. Please provide valid
+      backup codes from your EA security settings.
+    </p>
+
+    <p className="text-sm text-gray-300 mt-2">
+      You can find your backup codes here:
+    </p>
+
+    <a
+      href="https://myaccount.ea.com/cp-ui/security/index"
+      target="_blank"
+      className="text-blue-400 text-sm underline"
+    >
+      EA Security Settings
+    </a>
+  </motion.div>
+)}
 
         {showError && (
           <motion.div
