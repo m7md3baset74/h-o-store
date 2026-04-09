@@ -234,7 +234,7 @@ export default function OrderPage() {
               STORE
             </span>
           </div>
-          <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, letterSpacing: "0.32em", textTransform: "uppercase", color: "rgba(201,168,76,0.40)" }}>
+          <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, letterSpacing: "0.32em", textTransform: "uppercase", color: "rgba(201,168,76,0.42)" }}>
             Private Transfer Service
           </span>
         </motion.div>
@@ -272,7 +272,7 @@ export default function OrderPage() {
                 }}
               >
                 <div style={{ width: 5, height: 5, borderRadius: "50%", background: isFinished ? "#22c55e" : "#c9a84c", boxShadow: `0 0 6px ${isFinished ? "#22c55e" : "#c9a84c"}` }} />
-                <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, letterSpacing: "0.24em", textTransform: "uppercase", color: isFinished ? "rgba(34,197,94,0.65)" : "rgba(201,168,76,0.65)", fontWeight: 400 }}>
+                <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, letterSpacing: "0.24em", textTransform: "uppercase", color: isFinished ? "rgba(34,197,94,0.65)" : "rgba(201,168,76,0.65)", fontWeight: 700 }}>
                   {order.status}
                 </span>
               </motion.div>
