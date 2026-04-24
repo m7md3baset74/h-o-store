@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import { Redis } from "@upstash/redis";
+
+const redis = Redis.fromEnv();
 
 export async function POST(req: Request) {
   try {
@@ -66,7 +69,6 @@ export async function POST(req: Request) {
 
     const responseText = await submitRes.text();
 
-    // Try to parse JSON response (futtransfer returns JSON not a redirect)
     let parsed: any = null;
     try {
       parsed = JSON.parse(responseText);
@@ -76,8 +78,10 @@ export async function POST(req: Request) {
 
     // Handle JSON success response
     if (parsed?.status === "success" && parsed?.orderID && parsed?.verify) {
-  return NextResponse.json(parsed); // رجع كل حاجة عشان نشوف
-}
+      const shortCode = parsed.orderID.replace(/-/g, "").slice(0, 8);
+      await redis.set(`order:${shortCode}`, { orderID: parsed.orderID, verify: parsed.verify });
+      return NextResponse.json({ orderID: parsed.orderID, verify: parsed.verify, shortCode });
+    }
 
     // Handle redirect (fallback)
     const location = submitRes.headers.get("location");
@@ -86,11 +90,12 @@ export async function POST(req: Request) {
       const orderID = redirectUrl.searchParams.get("orderID");
       const verify = redirectUrl.searchParams.get("verify");
       if (orderID && verify) {
-        return NextResponse.json({ orderID, verify });
+        const shortCode = orderID.replace(/-/g, "").slice(0, 8);
+        await redis.set(`order:${shortCode}`, { orderID, verify });
+        return NextResponse.json({ orderID, verify, shortCode });
       }
     }
 
-    // Return error with full debug info
     return NextResponse.json({
       error: parsed?.message || responseText.slice(0, 200) || "Unknown error from futtransfer",
       status: submitRes.status,

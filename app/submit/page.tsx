@@ -144,7 +144,7 @@ function SubmitForm() {
       });
       const data = await res.json();
       if (data.error) { setError(data.error); setLoading(false); return; }
-      router.push(`/order/${data.orderID}?verify=${data.verify}&oid=${data.orderID}`);
+      router.push(`/order/${data.shortCode}`);
     } catch {
       setError("Network error. Please try again.");
       setLoading(false);
