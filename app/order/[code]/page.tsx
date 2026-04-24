@@ -203,7 +203,7 @@ function OrderPageInner() {
   const params = useParams();
   const searchParams = useSearchParams();
   const code = params.code as string;
-  const verify = searchParams.get("verify") || "";
+  const verifyParam = searchParams.get("verify") || "";
   const oid = searchParams.get("oid") || "";
 
   const [order, setOrder] = useState<any>(null);
@@ -213,7 +213,7 @@ function OrderPageInner() {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const fetchOrder = async () => {
-    const res = await fetch(`/api/order?code=${code}&verify=${verify}`);
+    const res = await fetch(`/api/order?code=${code}&verify=${verifyParam}`);
     const data = await res.json();
     setOrder(data[0]);
   };
@@ -240,7 +240,8 @@ function OrderPageInner() {
   const isWrongBackup = order.accountCheck === "wrongBA" && !updatedBackup;
 
   // orderID للـ update forms — نحاول نجيبه من الـ URL أو من الـ order response
-  const orderID = oid || order.orderID || code;
+  const orderID = order._orderID || oid || order.orderID || code;
+const verify = order._verify || verifyParam || "";
 
   return (
     <>
