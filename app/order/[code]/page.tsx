@@ -223,7 +223,7 @@ function OrderPageInner() {
     fetchOrder();
     const interval = setInterval(() => {
       if (!document.hidden) fetchOrder();
-    }, 15000); // كل 15 ثانية عشان نلاقي الايرور بسرعة
+    }, 6000); // كل 15 ثانية عشان نلاقي الايرور بسرعة
     return () => clearInterval(interval);
   }, [code]);
 
