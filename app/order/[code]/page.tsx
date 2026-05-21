@@ -453,7 +453,7 @@ const verify = order._verify || verifyParam || "";
                 <div style={{ padding: "8px 14px", borderBottom: "1px solid rgba(201,168,76,0.06)" }}>
                   <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, letterSpacing: "0.26em", textTransform: "uppercase", color: "rgba(201,168,76,0.65)" }}>Last Transfer Proof</p>
                 </div>
-                <img src={`https://futtransfer.top/getScreenshot.php?transferID=${order.lastTransferID}&mode=2`} style={{ width: "100%", display: "block" }} />
+                <img src={`/api/screenshot?transferID=${order.lastTransferID}`} style={{ width: "100%", display: "block" }} />
               </motion.div>
             )}
 
