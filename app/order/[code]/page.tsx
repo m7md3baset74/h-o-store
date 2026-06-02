@@ -573,6 +573,7 @@ function OrderPageInner() {
   const [updatedCredentials, setUpdatedCredentials] = useState(false);
   const [updatedBackup, setUpdatedBackup] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [resumeLoading, setResumeLoading] = useState(false);
 
   const fetchOrder = async () => {
     const res = await fetch(`/api/order?code=${code}&verify=${verifyParam}`);
@@ -608,6 +609,39 @@ function OrderPageInner() {
   // orderID للـ update forms — نحاول نجيبه من الـ URL أو من الـ order response
   const orderID = order._orderID || oid || order.orderID || code;
   const verify = order._verify || verifyParam || "";
+
+  const handleResume = async () => {
+    setResumeLoading(true);
+
+    try {
+      const res = await fetch("/api/update-credentials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderID,
+          verify,
+          updateType: "retry",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.result?.trim() === "success") {
+        await fetchOrder();
+      } else {
+        setShowError(true);
+        setTimeout(() => setShowError(false), 3000);
+      }
+    } catch {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+    } finally {
+      setResumeLoading(false);
+    }
+  };
+  
 
   return (
     <>
@@ -1288,10 +1322,8 @@ function OrderPageInner() {
                   team then EXIT before closing the game.
                 </p>
                 <button
-                  onClick={() => {
-                    setShowError(true);
-                    setTimeout(() => setShowError(false), 3000);
-                  }}
+                  onClick={handleResume}
+                  disabled={resumeLoading}
                   style={{
                     width: "100%",
                     display: "flex",
@@ -1314,8 +1346,20 @@ function OrderPageInner() {
                   onMouseOver={(e) => (e.currentTarget.style.opacity = "0.75")}
                   onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
                 >
-                  <RotateCw size={12} />
-                  Resume Transfer
+                  {resumeLoading ? (
+                    <>
+                      <Loader2
+                        size={12}
+                        style={{ animation: "spin 1s linear infinite" }}
+                      />
+                      Resuming...
+                    </>
+                  ) : (
+                    <>
+                      <RotateCw size={12} />
+                      Resume Transfer
+                    </>
+                  )}
                 </button>
               </motion.div>
             )}

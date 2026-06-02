@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const formData = new URLSearchParams();
     formData.append("orderID", orderID);
     formData.append("verify", verify);
-    formData.append("code", "");
+    formData.append("code", "verify");
     formData.append("updateType", updateType);
 
     if (updateType === "credentials") {
@@ -30,6 +30,12 @@ export async function POST(req: Request) {
     });
 
     const text = await res.text();
+    console.log({
+  orderID,
+  verify,
+  updateType,
+  response: text,
+});
     return NextResponse.json({ result: text });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
