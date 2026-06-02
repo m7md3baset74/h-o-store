@@ -30,12 +30,6 @@ export async function POST(req: Request) {
     });
 
     const text = await res.text();
-    console.log({
-  orderID,
-  verify,
-  updateType,
-  response: text,
-});
     return NextResponse.json({ result: text });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
