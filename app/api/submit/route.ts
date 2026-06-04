@@ -90,7 +90,7 @@ export async function POST(req: Request) {
       const orderID = redirectUrl.searchParams.get("orderID");
       const verify = redirectUrl.searchParams.get("verify");
       if (orderID && verify) {
-        const shortCode = orderID.replace(/-/g, "").slice(0, 8);
+        const shortCode = orderID.split("-")[0];
         await redis.set(`order:${shortCode}`, { orderID, verify });
         return NextResponse.json({ orderID, verify, shortCode });
       }
